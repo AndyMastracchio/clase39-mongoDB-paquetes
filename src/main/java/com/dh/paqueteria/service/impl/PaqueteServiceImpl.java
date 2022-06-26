@@ -19,17 +19,24 @@ public class PaqueteServiceImpl implements PaqueteService {
     }
 
     public Paquete agregar(Paquete paquete) throws BadRequestException {
-        if(paqueteRepository.findPaqueteByCodigo(paquete.getCodigo()) != null) {
+        // Agregado en ejercicio clase 41
+        if (paqueteRepository.findPaqueteByCodigo(paquete.getCodigo()) != null) {
             throw new BadRequestException("Ya existe un paquete con el codigo :" + paquete.getCodigo());
         }
+
+        // Agregado en ejercicio clase 42
+        if (paquete.getDestino() == null) {
+            throw new BadRequestException("El paquete debe contener un destino");
+        }
+
         return paqueteRepository.save(paquete);
     }
 
-    public List<Paquete> listar(){
+    public List<Paquete> listar() {
         return paqueteRepository.findAll();
     }
 
-    public List<Paquete> paquetesEnCamino(){
+    public List<Paquete> paquetesEnCamino() {
         return paqueteRepository.findAllByEstado(Estado.EN_CAMINO);
     }
 
