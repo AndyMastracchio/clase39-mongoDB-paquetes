@@ -2,6 +2,7 @@ package com.dh.paqueteria.service.impl;
 
 import com.dh.paqueteria.entity.Estado;
 import com.dh.paqueteria.entity.Paquete;
+import com.dh.paqueteria.exceptions.BadRequestException;
 import com.dh.paqueteria.repository.PaqueteRepository;
 import com.dh.paqueteria.service.PaqueteService;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,10 @@ public class PaqueteServiceImpl implements PaqueteService {
         this.paqueteRepository = paqueteRepository;
     }
 
-    public Paquete agregar(Paquete paquete){
+    public Paquete agregar(Paquete paquete) throws BadRequestException {
+        if(paqueteRepository.findPaqueteByCodigo(paquete.getCodigo()) != null) {
+            throw new BadRequestException("Ya existe un paquete con el codigo :" + paquete.getCodigo());
+        }
         return paqueteRepository.save(paquete);
     }
 

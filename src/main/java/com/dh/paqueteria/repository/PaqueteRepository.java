@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface PaqueteRepository  extends MongoRepository<Paquete,Integer> {
         List<Paquete> findAllByEstado(Estado estado);
+        Paquete findPaqueteByCodigo(String codigo);
 }
