@@ -4,15 +4,25 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Document(collection = "paquetes")
 public class Paquete {
+
+    @NotNull
     @Id
     private String id;
 
+    @NotNull
     @Field("cod")
     private String codigo;
+
+    @Size(min = 1, max = 25)
     private String nombre;
     private Estado estado;
+
+    @NotNull
     private Destino destino;
 
     public String getId() {

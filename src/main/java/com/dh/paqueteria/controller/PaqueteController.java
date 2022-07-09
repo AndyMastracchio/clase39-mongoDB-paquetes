@@ -3,6 +3,7 @@ package com.dh.paqueteria.controller;
 import com.dh.paqueteria.entity.Paquete;
 import com.dh.paqueteria.exceptions.BadRequestException;
 import com.dh.paqueteria.service.PaqueteService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,16 +27,20 @@ public class PaqueteController {
         this.paqueteService = paqueteService;
     }
 
+    @Operation(summary = "Genera un nuevo Paquete",
+            description = "Aquí colocamos una descripción de algun proceso o comentario importante")
     @PostMapping("/new")
     public Paquete registar(@RequestBody Paquete paquete) throws BadRequestException {
         return paqueteService.agregar(paquete);
     }
 
+    @Operation(summary = "Lista los paquetes")
     @GetMapping
     public List<Paquete> listar() {
         return paqueteService.listar();
     }
 
+    @Operation(summary = "Lista paquetes con estado = EN_CAMINO")
     @GetMapping("/en-camino")
     public List<Paquete> enCamino() {
         return paqueteService.paquetesEnCamino();
